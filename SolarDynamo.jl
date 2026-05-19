@@ -86,32 +86,32 @@ function sn(θ; Twarmup = 200, Tobs = 929, kwargs...)
 end
 
 
-# function sn_with_noise(θ; Twarmup = 200, Tobs = 200, kwargs...)
+function sn_with_noise(θ; Twarmup = 200, Tobs = 200, kwargs...)
 
-#     Tsim = Twarmup + Tobs
+    Tsim = Twarmup + Tobs
 
-#     sol = bfield(θ, Tsim; save_noise=true, kwargs...)
+    sol = bfield(θ, Tsim; save_noise=true, kwargs...)
     
-#     y = zeros(Tobs)
-#     noise = zeros(Tobs)
+    y = zeros(Tobs)
+    noise = zeros(Tobs)
     
-#     for i in 1:Tobs
-#         t_start = Twarmup + i - 1.0
-#         t_end   = Twarmup + i * 1.0
+    for i in 1:Tobs
+        t_start = Twarmup + i - 1.0
+        t_end   = Twarmup + i * 1.0
         
-#         # value of temporal series (B^2) on time t_end
-#         y[i] = abs2(sol(t_end)[1])
+        # value of temporal series (B^2) on time t_end
+        y[i] = abs2(sol(t_end)[1])
         
-#         # exact increment of Wiener process on interval [t_start,t_end]
-#         # sol.W(t) gives the state of noise at time t
-#         W_start = sol.W(t_start)[2]
-#         W_end   = sol.W(t_end)[2]
+        # exact increment of Wiener process on interval [t_start,t_end]
+        # sol.W(t) gives the state of noise at time t
+        W_start = sol.W(t_start)[2]
+        W_end   = sol.W(t_end)[2]
         
-#         noise[i] = W_end - W_start
-#     end
+        noise[i] = W_end - W_start
+    end
     
-#     return y, noise
-# end
+    return y, noise
+end
 
 
 
